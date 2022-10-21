@@ -3,7 +3,7 @@ steps:
   args: ['clone', '-b', 'main', 'https://github.com/ncolossi/cdf-cicd.git']
 - name: gcr.io/cloud-builders/gcloud
   entrypoint: 'bash'
-  args: [ '-c', 'gcloud secrets versions access latest --secret=cdfbuild-sa-keyfile > cdfbuild-sa-keyfile.json' ]
+  args: [ '-c', 'gcloud secrets versions access latest --secret=cdfbuild-sa-key > cdfbuild-sa-keyfile.json' ]
 - name: gcr.io/cloud-builders/gcloud
   entrypoint: 'bash'
   args: [ '-c', 'gcloud auth activate-service-account --key-file cdfbuild-sa-keyfile.json' ]
