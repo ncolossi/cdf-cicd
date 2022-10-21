@@ -10,3 +10,13 @@ steps:
 - name: gcr.io/cloud-builders/gcloud
   entrypoint: 'bash'
   args: [ '-c', 'gcloud auth print-access-token > access-token.txt' ]
+- name: gcr.io/cloud-builders/gcloud
+  entrypoint: 'bash'
+  args:
+     - '-c'
+     - |
+       for FILE in datafusion/pipelines/*.json
+       do
+       CURRFILE=$(echo $$FILE | sed "s/.*\///" | cut -f 1 -d '.')
+       curl -X PUT -H "Authorization: Bearer $(cat access-token.txt)" "https://cdf-demo-analytics-demo-ngc-dot-usc1.datafusion.googleusercontent.com/api/v3/namespaces/prod/apps/$$CURRFILE" -d "@./datafusion/pipelines/$$CURRFILE.json"
+       done
