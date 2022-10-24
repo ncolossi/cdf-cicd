@@ -15,8 +15,7 @@ steps:
   args:
      - '-c'
      - |
-       build_files=$(git diff-tree --no-commit-id --name-only -r $SHORT_SHA)
-       echo $$build_files
+       git diff-tree --no-commit-id --name-only -r $COMMIT_SHA
        for FILE in datafusion/pipelines/*.json
        do
        echo Deploying $$FILE
