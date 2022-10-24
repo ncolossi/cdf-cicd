@@ -16,10 +16,10 @@ steps:
      - '-c'
      - |
        build_files=$(git diff-tree --no-commit-id --name-only -r $SHORT_SHA)
-       echo $build_files
+       echo $$build_files
        for FILE in datafusion/pipelines/*.json
        do
-       echo Deploying $FILE
+       echo Deploying $$FILE
        CURRFILE=$(echo $$FILE | sed "s/.*\///" | cut -f 1 -d '.')
        curl -X PUT -H "Authorization: Bearer $(cat access-token.txt)" "https://cdf-demo-analytics-demo-ngc-dot-usc1.datafusion.googleusercontent.com/api/v3/namespaces/prod/apps/$$CURRFILE" -d "@./datafusion/pipelines/$$CURRFILE.json"
        done
